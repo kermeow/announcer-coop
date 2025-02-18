@@ -51,8 +51,8 @@ end
 local star_message = "%s\\#ffffff\\ got \\#33ff33\\[%s]\\#ffffff\\!"
 local bowser_message = "%s\\#ffffff\\ beat \\#ff3300\\[%s]\\#ffffff\\!"
 
-local star_sound = audio_stream_load("starAnnounce.mp3")
-local bowser_sound = audio_stream_load("bowserAnnounce.mp3")
+local star_sound = audio_sample_load("starAnnounce.mp3")
+local bowser_sound = audio_sample_load("bowserAnnounce.mp3")
 
 local play_star_sound = true
 if mod_storage_exists("star_sound") then play_star_sound = mod_storage_load_bool("star_sound") end
@@ -66,7 +66,7 @@ local function on_recv_packet(data)
 		local starName = get_star_name(data.course, data.level, data.area, data.star + 1)
 		djui_chat_message_create(string.format(star_message, player.name, starName))
 		if not play_star_sound then return end
-		if player ~= localPlayer then audio_stream_play(star_sound, true, get_volume_sfx()) end
+		if player ~= localPlayer then audio_sample_play(star_sound, gLakituState.pos, get_volume_sfx()) end
 	end
 	if data.type == "bowser" then
 		local courseName
@@ -75,7 +75,7 @@ local function on_recv_packet(data)
 		if data.course == COURSE_BITS then courseName = "Bowser in the Sky" end
 		djui_chat_message_create(string.format(bowser_message, player.name, courseName))
 		if not play_bowser_sound then return end
-		if player ~= localPlayer then audio_stream_play(bowser_sound, true, get_volume_sfx()) end
+		if player ~= localPlayer then audio_sample_play(bowser_sound, gLakituState.pos, get_volume_sfx()) end
 	end
 end
 
@@ -126,8 +126,8 @@ hook_mod_menu_checkbox("Play sound on Bowser announcement", play_bowser_sound, f
 end)
 
 hook_mod_menu_button("Preview star sound", function(_)
-	audio_stream_play(star_sound, true, get_volume_sfx())
+	audio_sample_play(star_sound, gLakituState.pos, 1)
 end)
 hook_mod_menu_button("Preview Bowser sound", function(_)
-	audio_stream_play(bowser_sound, true, get_volume_sfx())
+	audio_sample_play(bowser_sound, gLakituState.pos, 1)
 end)
