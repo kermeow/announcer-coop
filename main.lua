@@ -54,8 +54,10 @@ local bowser_message = "%s\\#ffffff\\ beat \\#ff3300\\[%s]\\#ffffff\\!"
 local star_sound = audio_stream_load("starAnnounce.mp3")
 local bowser_sound = audio_stream_load("bowserAnnounce.mp3")
 
-local play_star_sound = mod_storage_exists("star_sound") and mod_storage_load_bool("star_sound")
-local play_bowser_sound = mod_storage_exists("bowser_sound") and mod_storage_load_bool("bowser_sound")
+local play_star_sound = true
+if mod_storage_exists("star_sound") then play_star_sound = mod_storage_load_bool("star_sound") end
+local play_bowser_sound = true
+if mod_storage_exists("bowser_sound") then play_bowser_sound = mod_storage_load_bool("bowser_sound") end
 
 ---@param data AnnouncerPacket
 local function on_recv_packet(data)
