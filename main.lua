@@ -66,7 +66,7 @@ local function on_recv_packet(data)
 		local starName = get_star_name(data.course, data.level, data.area, data.star + 1)
 		djui_chat_message_create(string.format(star_message, player.name, starName))
 		if not play_star_sound then return end
-		if player ~= localPlayer then audio_stream_play(star_sound, true, 1) end
+		if player ~= localPlayer then audio_stream_play(star_sound, true, get_volume_sfx()) end
 	end
 	if data.type == "bowser" then
 		local courseName
@@ -75,7 +75,7 @@ local function on_recv_packet(data)
 		if data.course == COURSE_BITS then courseName = "Bowser in the Sky" end
 		djui_chat_message_create(string.format(bowser_message, player.name, courseName))
 		if not play_bowser_sound then return end
-		if player ~= localPlayer then audio_stream_play(bowser_sound, true, 1) end
+		if player ~= localPlayer then audio_stream_play(bowser_sound, true, get_volume_sfx()) end
 	end
 end
 
@@ -123,4 +123,11 @@ end)
 hook_mod_menu_checkbox("Play sound on Bowser announcement", play_bowser_sound, function(_, value)
 	play_bowser_sound = value
 	mod_storage_save_bool("bowser_sound", value)
+end)
+
+hook_mod_menu_button("Preview star sound", function(_)
+	audio_stream_play(star_sound, true, get_volume_sfx())
+end)
+hook_mod_menu_button("Preview Bowser sound", function(_)
+	audio_stream_play(bowser_sound, true, get_volume_sfx())
 end)
