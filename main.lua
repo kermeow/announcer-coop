@@ -1,5 +1,5 @@
 -- name: Announcer
--- description: \\#33ff33\\Announcer\n\n\\#dcdcdc\\Announces star collection in chat.\nOptionally plays sound effects.\n\nMod by \\#646464\\kermeow\n\\#dcdcdc\\Sounds by \\#646464\\pyrule
+-- description: \\#33ff33\\Announcer v1.0.0\n\n\\#dcdcdc\\Announces star collection in chat.\nOptionally plays sound effects.\n\nMod by \\#646464\\kermeow\n\\#dcdcdc\\Sounds by \\#646464\\pyrule
 
 ---@type NetworkPlayer
 local localPlayer = gNetworkPlayers[0]
